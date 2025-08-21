@@ -38,6 +38,5 @@ if __name__ == '__main__':
     # Ejecuta la aplicación en modo debug (recarga automática y mensajes de error detallados)
     app.run(debug=True)
 
-# https://proyecto-flask-mtiu.onrender.com/
-# https://proyecto-flask-mtiu.onrender.com/usuario/angela
+
 
