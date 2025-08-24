@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} - Mi Proyecto Flask{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    .feature-card {
+        transition: transform 0.2s;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Sección hero -->
+<div class="hero-section p-5 text-center">
+    <h1 class="display-4 mb-3">{{ titulo }}</h1>
+    <p class="lead mb-4">{{ mensaje }}</p>
+    <a href="{{ url_for('about') }}" class="btn btn-light btn-lg">
+        Conoce más sobre nosotros
+    </a>
+</div>
+
+<!-- Sección de características -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Características del Proyecto</h2>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for caracteristica in caracteristicas %}
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 feature-card">
+            <div class="card-body text-center">
+                <div class="feature-icon mb-3">
+                    {% if loop.index == 1 %}
+                        <i class="fas fa-code" style="font-size: 2rem; color: #667eea;"></i>
+                    {% elif loop.index == 2 %}
+                        <i class="fas fa-folder-open" style="font-size: 2rem; color: #667eea;"></i>
+                    {% elif loop.index == 3 %}
+                        <i class="fas fa-recycle" style="font-size: 2rem; color: #667eea;"></i>
+                    {% else %}
+                        <i class="fas fa-mobile-alt" style="font-size: 2rem; color: #667eea;"></i>
+                    {% endif %}
+                </div>
+                <h5 class="card-title">{{ caracteristica }}</h5>
+                <p class="card-text">
+                    {% if loop.index == 1 %}
+                        Usando Jinja2 para crear contenido dinámico y reutilizable.
+                    {% elif loop.index == 2 %}
+                        Código bien organizado y fácil de mantener.
+                    {% elif loop.index == 3 %}
+                        Plantillas que se pueden usar en múltiples páginas.
+                    {% else %}
+                        Adaptable a dispositivos móviles y de escritorio.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Sección de estadísticas -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Progreso del Proyecto</h2>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h3>{{ caracteristicas|length }}</h3>
+                <p>Características implementadas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h3>2</h3>
+                <p>Páginas creadas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h3>100%</h3>
+                <p>Responsive design</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Llamada a la acción -->
+<div class="text-center mt-5 p-4 bg-light rounded">
+    <h3>¿Listo para explorar?</h3>
+    <p>Descubre más sobre este proyecto y las tecnologías utilizadas.</p>
+    <a href="{{ url_for('about') }}" class="btn btn-primary btn-lg">
+        Ver más detalles
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Font Awesome para los iconos -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+{% endblock %}

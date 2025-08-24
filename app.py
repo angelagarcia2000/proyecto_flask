@@ -1,42 +1,53 @@
 
-# ============Link de render =======================
+from flask import Flask, render_template
 
-# https://proyecto-flask-mtiu.onrender.com/
-# https://proyecto-flask-mtiu.onrender.com/usuario/angela
-
-# Importamos la clase Flask desde el módulo flask
-from flask import Flask
-
-# Creamos una instancia de la aplicación Flask
-# __name__ indica que el archivo actual será el punto de entrada
+# Crear la aplicación Flask
 app = Flask(__name__)
 
-# -------------------------------
-# Ruta principal del sitio web
-# -------------------------------
-# Cuando un usuario accede a la URL raíz ('/'), se ejecuta la función inicio()
+# Configuración básica
+app.config['SECRET_KEY'] = 'tu_clave_secreta_aqui'
+
 @app.route('/')
-def inicio():
-    # La función devuelve un texto plano que se mostrará en el navegador
-    return '¡Hola, Flask está funcionando!'
+def index():
+    """Página de inicio"""
+    # Datos dinámicos para la página de inicio
+    datos = {
+        'titulo': 'Bienvenido a Mi Proyecto Flask',
+        'mensaje': 'Esta es la página principal de nuestro sitio web.',
+        'caracteristicas': [
+            'Plantillas dinámicas con Jinja2',
+            'Estructura de proyecto organizada',
+            'Reutilización de componentes',
+            'Diseño responsive'
+        ]
+    }
+    return render_template('index.html', **datos)
 
-# -------------------------------
-# Ruta personalizada con parámetro
-# -------------------------------
-# Cuando el usuario accede a /usuario/<nombre>,
-# Flask toma el valor que se ponga en <nombre> y lo pasa como argumento a la función usuario()
-@app.route('/usuario/<nombre>')
-def usuario(nombre):
-    # Devuelve un mensaje dinámico con el nombre ingresado en la URL
-    return f'Bienvenido, {nombre}!'
+@app.route('/about')
+def about():
+    """Página Acerca de"""
+    # Información sobre el proyecto
+    info_proyecto = {
+        'titulo': 'Acerca de Nosotros',
+        'descripcion': 'Este es un proyecto Flask desarrollado como parte del aprendizaje de desarrollo web con Python.',
+        'tecnologias': [
+            {'nombre': 'Flask', 'descripcion': 'Framework web de Python'},
+            {'nombre': 'Jinja2', 'descripcion': 'Motor de plantillas'},
+            {'nombre': 'HTML5', 'descripcion': 'Estructura del contenido'},
+            {'nombre': 'CSS3', 'descripcion': 'Estilos y diseño'}
+        ],
+        'version': '1.0.0',
+        'autor': 'Tu Nombre'
+    }
+    return render_template('about.html', **info_proyecto)
 
-# -------------------------------
-# Punto de entrada de la aplicación
-# -------------------------------
-# Verifica que el archivo se ejecute directamente (no como módulo importado)
+@app.errorhandler(404)
+def page_not_found(error):
+    """Página de error 404"""
+    return render_template('404.html'), 404
+
 if __name__ == '__main__':
-    # Ejecuta la aplicación en modo debug (recarga automática y mensajes de error detallados)
-    app.run(debug=True)
-
+    # Ejecutar la aplicación en modo debug
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
 
